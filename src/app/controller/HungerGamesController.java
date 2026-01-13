@@ -29,5 +29,24 @@ public class HungerGamesController {
                 System.out.println(t);
             }
 
+            // Task 2: Filter by District
+            handleDistrictFilter();
 
+
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
+    private void handleDistrictFilter() {
+        System.out.print("Input district: ");
+        Scanner scanner = new Scanner(System.in);//wir lesen den Distrikt von der Konsole ein
+        if (scanner.hasNextInt()) {
+            int distrikt = scanner.nextInt();       //wir filtern die Tribute nach dem eingegebenen Distrikt und dem Status LEBENDIG
+            List<Tribut> filtered = service.filterTributes(distrikt, Status.LEBENDIG);
+            filtered.forEach(System.out::println);  //wir geben die gefilterten Tribute aus
+        } else {
+            System.out.println("Invalid input.");   //Fehlermeldung bei nicht guten Eingabe
+        }
+    }
 }
