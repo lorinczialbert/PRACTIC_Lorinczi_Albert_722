@@ -32,10 +32,15 @@ public class HungerGamesController {
             // Task 2: Filter by District
             handleDistrictFilter();
 
+            // uebung 3 sortieren der Tribute
+            System.out.println("\nSorted Tributes:");
+            List<Tribut> sorted = service.getSortedTributes();
+            sorted.forEach(System.out::println);
 
-        } catch (IOException e) {
-            System.err.println("Error: " + e.getMessage());
-        }
+            // uebung 4 die exportierte datei
+            service.exportSortedTributes("tributes_sorted.txt");
+            System.out.println("\nTask 4: tributes_sorted.txt created.");
+
     }
 
     private void handleDistrictFilter() {
