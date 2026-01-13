@@ -8,12 +8,12 @@ import java.util.*;
 
 public class HungerGamesRepository {
 
-    public List<Tribut> loadTributes(String filePath) throws IOException {
-        List<Tribut> list = new ArrayList<>();
+    public List<Tribut> loadTributes(String filePath) throws IOException {//lesen der tribute json datei
+        List<Tribut> list = new ArrayList<>();//erstellt eine leere liste
         String content = readFile(filePath);
-        String[] objects = splitObjects(content);
+        String[] objects = splitObjects(content);   //teilt den inhalt in einzelne objekte auf
 
-        for (String obj : objects) {
+        for (String obj : objects) {    //für jedes objekt
             Map<String, String> map = parseObject(obj);
             list.add(new Tribut(
                     Integer.parseInt(map.get("id")),
@@ -23,10 +23,10 @@ public class HungerGamesRepository {
                     Integer.parseInt(map.get("skillLevel"))
             ));
         }
-        return list;
+        return list;    //gibt die liste zurück
     }
 
-    public List<Ereignis> loadEvents(String filePath) throws IOException {
+    public List<Ereignis> loadEvents(String filePath) throws IOException {//lesen der ereignis json datei
         List<Ereignis> list = new ArrayList<>();
         String content = readFile(filePath);
         String[] objects = splitObjects(content);
@@ -44,7 +44,7 @@ public class HungerGamesRepository {
         return list;
     }
 
-    public List<SponsorGeschenk> loadGifts(String filePath) throws IOException {
+    public List<SponsorGeschenk> loadGifts(String filePath) throws IOException {    //lesen der geschenk json datei
         List<SponsorGeschenk> list = new ArrayList<>();
         String content = readFile(filePath);
         String[] objects = splitObjects(content);
@@ -62,17 +62,17 @@ public class HungerGamesRepository {
         return list;
     }
 
-    // Helper methods for manual JSON parsing
-    private String readFile(String path) throws IOException {
+    //helper methode zum lesen und parsen der json dateien
+    private String readFile(String path) throws IOException {   //liest den inhalt der datei
         String content = new String(Files.readAllBytes(Paths.get(path)));
         return content.trim().substring(1, content.length() - 1); // remove [ ]
     }
 
-    private String[] splitObjects(String content) {
+    private String[] splitObjects(String content) { //teilt den inhalt in einzelne objekte auf
         return content.split("\\},\\s*\\{");
     }
 
-    private Map<String, String> parseObject(String obj) {
+    private Map<String, String> parseObject(String obj) {   //parst ein einzelnes objekt in eine map
         obj = obj.replace("{", "").replace("}", "").replace("\"", "");
         Map<String, String> map = new HashMap<>();
         for (String field : obj.split(",")) {

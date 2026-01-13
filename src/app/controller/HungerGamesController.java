@@ -29,19 +29,19 @@ public class HungerGamesController {
                 System.out.println(t);
             }
 
-            // uebung2: Filtern nach Distrikt
+            // uebung2 filter nach distrikt und status
             handleDistrictFilter();
 
-            // ubung 3 : sortieren der tribute
+            // ubung3 sortieren der tribute
             System.out.println("\nSorted Tributes:");
             List<Tribut> sorted = service.getSortedTributes();
             sorted.forEach(System.out::println);
 
-            // ubung 4: exportieren der sortierten tribute in eine txt datei
+            // ubung 4 exportieren der sortierten tribute in eine txt datei
             service.exportSortedTributes("tributes_sorted.txt");
             System.out.println("\nTask 4: tributes_sorted.txt created.");
 
-            //ubung 5: berechnung der punkte
+            //ubung 5 berechnung der punkte
             System.out.println("\nComputed Points (First 5 events):");
             for (Ereignis e : service.getFirstNEvents(5)) {
                 System.out.printf("Event %d -> rawPoints=%d -> computedPoints=%d%n",
@@ -51,6 +51,24 @@ public class HungerGamesController {
 
 
 
+
+
+            System.out.println("\nTop 5 Tributes:");
+            List<Tribut> top5 = service.getTopTributes(5);
+            for (int i = 0; i < top5.size(); i++) {
+                Tribut t = top5.get(i);
+                System.out.printf("%d. %s -> %d%n", i + 1, t.getName(), service.getScoreForTribute(t.getId()));
+            }
+
+            // Task 7: Report
+            service.generateArenaReport("arena_report.txt");
+            System.out.println("Task 7: arena_report.txt created.");
+
+        } catch (IOException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+// Methode zum Einlesen des Distrikts und Filtern der Tribute
     private void handleDistrictFilter() {
         System.out.print("Input district: ");
         Scanner scanner = new Scanner(System.in);//wir lesen den Distrikt von der Konsole ein
