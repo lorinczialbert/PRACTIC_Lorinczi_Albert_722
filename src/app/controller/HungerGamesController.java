@@ -29,19 +29,27 @@ public class HungerGamesController {
                 System.out.println(t);
             }
 
-            // Task 2: Filter by District
+            // uebung2: Filtern nach Distrikt
             handleDistrictFilter();
 
-            // uebung 3 sortieren der Tribute
+            // ubung 3 : sortieren der tribute
             System.out.println("\nSorted Tributes:");
             List<Tribut> sorted = service.getSortedTributes();
             sorted.forEach(System.out::println);
 
-            // uebung 4 die exportierte datei
+            // ubung 4: exportieren der sortierten tribute in eine txt datei
             service.exportSortedTributes("tributes_sorted.txt");
             System.out.println("\nTask 4: tributes_sorted.txt created.");
 
-    }
+            //ubung 5: berechnung der punkte
+            System.out.println("\nComputed Points (First 5 events):");
+            for (Ereignis e : service.getFirstNEvents(5)) {
+                System.out.printf("Event %d -> rawPoints=%d -> computedPoints=%d%n",
+                        e.getId(), e.getPoints(), service.calculateComputedPoints(e));
+            }
+
+
+
 
     private void handleDistrictFilter() {
         System.out.print("Input district: ");
